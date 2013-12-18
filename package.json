@@ -1,0 +1,23 @@
+{
+  "name": "html2js-browserify",
+  "version": "0.0.1",
+  "description": "turn html into beautiful js, with browserify",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha test/spec.js"
+  },
+  "author": "Tim Macfarlane <timmacfarlane@gmail.com>",
+  "license": "BSD-2-Clause",
+  "keywords": [
+    "html2js",
+    "browserify"
+  ],
+  "dependencies": {
+    "through": "~2.3.4"
+  },
+  "devDependencies": {
+    "browserify": "~3.4.1",
+    "mocha": "~1.15.1",
+    "chai": "~1.8.1"
+  }
+}
