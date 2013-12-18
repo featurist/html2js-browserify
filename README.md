@@ -1,5 +1,9 @@
 # Turn crummy HTML into beautiful Javascript
 
+    npm install html2js-browserify
+
+## How?
+
 some.html
 
     <html><body><h1>dude!</h1></body></html>
