@@ -1,6 +1,10 @@
 var fs = require('fs');
 var through = require('through');
 
+var defaults = {
+    preprocessors:[]
+};
+
 function isHtml (file) {
     return /\.html$/.test(file);
 }
@@ -13,8 +17,19 @@ function html2js(content) {
   return "module.exports = '" + escapeContent(content) + "';";
 }
 
+function preprocessorFor(file) {
+    var matching_preprocessor = null;
+    defaults.preprocessors.forEach(function(preprocessor){
+        if (preprocessor.matches(file)) matching_preprocessor = preprocessor;
+    });
+    return matching_preprocessor;
+}
+
 module.exports = function (file) {
-    if (!isHtml(file)) return through();
+
+    var preprocessor = preprocessorFor(file);
+
+    if (!isHtml(file) && !preprocessor) return through();
 
     var data = '';
     return through(write, end);
@@ -23,7 +38,8 @@ module.exports = function (file) {
     function end () {
         var content, src;
         try {
-            content = fs.readFileSync(file, 'utf-8');
+            var raw_content = fs.readFileSync(file, 'utf-8');
+            content = preprocessor ? preprocessor.process(raw_content) : raw_content;
             src = html2js(content);
         } catch (error) {
             this.emit('error', error);
@@ -32,3 +48,9 @@ module.exports = function (file) {
         this.queue(null);
     }
 };
+
+module.exports.configure = function(options){
+    if(options && options.preprocessors) {
+        defaults.preprocessors = options.preprocessors
+    }
+}
