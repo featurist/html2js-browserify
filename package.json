@@ -12,6 +12,10 @@
     "html2js",
     "browserify"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/featurist/html2js-browserify.git"
+  },  
   "dependencies": {
     "through": "~2.3.4"
   },
