@@ -1,6 +1,6 @@
 {
   "name": "html2js-browserify",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "turn html into beautiful js, with browserify",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/featurist/html2js-browserify.git"
-  },  
+  },
   "dependencies": {
     "through": "~2.3.4"
   },
