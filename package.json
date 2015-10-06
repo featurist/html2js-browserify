@@ -17,7 +17,8 @@
     "url": "git://github.com/featurist/html2js-browserify.git"
   },
   "dependencies": {
-    "through": "~2.3.4"
+    "through": "~2.3.4",
+    "html-minifier": "0.7.2"
   },
   "devDependencies": {
     "browserify": "~3.4.1",
