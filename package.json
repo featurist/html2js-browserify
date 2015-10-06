@@ -21,7 +21,7 @@
     "html-minifier": "0.7.2"
   },
   "devDependencies": {
-    "browserify": "~11.2.0",
+    "browserify": "~3.4.1",
     "mocha": "~1.15.1",
     "chai": "~1.8.1"
   }

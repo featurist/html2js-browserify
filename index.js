@@ -18,8 +18,6 @@ module.exports = function (file, opts) {
   if (!isHtml(file)) return through();
   opts = opts || {};
 
-  console.warn(opts)
-
   var data = '';
   return through(write, end);
 
