@@ -16,3 +16,11 @@ app.js
 Then
 
     # browserify -t html2js-browserify app.js
+
+## Options
+
+* `minify` if set to true, will minify the HTML. All other options are passed through to [html-minifier](https://github.com/kangax/html-minifier).
+
+    ```sh
+    browserify -t [html2js-browserify --minify --collapseWhitespace] app.js
+    ```
