@@ -1,6 +1,6 @@
 {
   "name": "html2js-browserify",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "turn html into beautiful js, with browserify",
   "main": "index.js",
   "scripts": {
