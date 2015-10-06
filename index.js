@@ -26,7 +26,7 @@ module.exports = function (file, opts) {
     var content, src;
     try {
       content = fs.readFileSync(file, 'utf-8');
-      if (opts.minifyHTML) content = htmlmin.minify(content, opts);
+      if (opts.minify) content = htmlmin.minify(content, opts);
       src = html2js(content);
     } catch (error) {
       this.emit('error', error);
