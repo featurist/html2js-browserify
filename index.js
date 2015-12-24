@@ -6,12 +6,8 @@ function isHtml (file) {
   return /\.html$/.test(file);
 }
 
-var escapeContent = function(content) {
-  return content.replace(/\\/g, '\\\\').replace(/'/g, '\\\'').replace(/\r?\n/g, '\\n\' +\n    \'');
-};
-
 function html2js(content) {
-  return "module.exports = '" + escapeContent(content) + "';";
+  return "module.exports = " + JSON.stringify(content) + ";";
 }
 
 module.exports = function (file, opts) {
