@@ -1,42 +1,60 @@
 var browserify = require('browserify');
 var fs = require('fs');
+var acorn = require('acorn');
+var walk = require('acorn/dist/walk');
 var html2js = require('..');
-require('chai').should();
 
 describe('html2js-browserify', function () {
-  beforeEach(function (done) {
-    fs.writeFile(__dirname + '/testFile.js', "var html = require('./testFile.html');result(html);", function (error) {
-      if (error) done(error);
+  it('converts HTML into JS', function (done) {
+    var b = browserify('./fixture.html', { basedir: __dirname });
 
-      fs.writeFile(__dirname + '/testFile.html', "<html><body class=\"bada\"><h1 class='bing'>dude!</h1></body></html>", function (error) {
-        if (error) done(error);
-
-        done();
-      });
-    });
-  });
-
-  afterEach(function (done) {
-    fs.unlink(__dirname + '/testFile.js', function () {
-      fs.unlink(__dirname + '/testFile.html', function () {
-        done();
-      });
-    });
-  });
-
-  it('converts html into js', function (done) {
-    var b = browserify(__dirname + '/testFile.js');
     b.transform(html2js);
-    b.bundle(function (error, bundle) {
-      if (error) {
-        done(error);
-      } else {
-        function result(html) {
-          html.should.equal("<html><body class=\"bada\"><h1 class='bing'>dude!</h1></body></html>");
-          done();
-        }
-        var f = eval(bundle.toString());
-      }
+    b.bundle(function (err, bundle) {
+      done(err || testExport(bundle, [
+        '<!doctype html>',
+        '<html>',
+        '  <body class="bada">',
+        '    <h1 class=\'bing\'>dude! \\r \\n \\ \\\\ \\\\\\</h1>',
+        '  </body>',
+        '</html>',
+        ''
+      ].join('\n')));
     });
   });
+
+  it('passes options to html-minifier', function (done) {
+    var b = browserify('./fixture.html', { basedir: __dirname });
+
+    b.transform(html2js, { minify: true, collapseWhitespace: true });
+    b.bundle(function (err, bundle) {
+      done(err || testExport(bundle, [
+        '<!doctype html>',
+        '<html>',
+        '<body class="bada">',
+
+        // Note: html-minifier replaces simple quotes around attributes with
+        // double quotes
+        '<h1 class="bing">dude! \\r \\n \\ \\\\ \\\\\\</h1>',
+
+        '</body>',
+        '</html>'
+      ].join('')));
+    });
+  });
+
+  function testExport(bundle, expected) {
+    var ast = acorn.parse(bundle);
+
+    return !walk.findNodeAt(ast, null, null, function (type, node) {
+      if (type !== 'AssignmentExpression') { return; }
+      if (node.left.type !== 'MemberExpression') { return; }
+      if (node.left.object.name !== 'module') { return; }
+      if (node.left.property.name !== 'exports') { return; }
+      if (node.right.type !== 'Literal') { return; }
+
+      if (node.right.value !== expected) { return; }
+
+      return true;
+    }) && new Error('Unable to find exported string: ' + expected);
+  }
 });
