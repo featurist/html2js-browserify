@@ -27,7 +27,7 @@ describe('html2js-browserify', function () {
   it('converts html into js', function (done) {
     var b = browserify(__dirname + '/testFile.js');
     b.transform(html2js);
-    b.bundle({}, function (error, bundle) {
+    b.bundle(function (error, bundle) {
       if (error) {
         done(error);
       } else {
@@ -35,7 +35,7 @@ describe('html2js-browserify', function () {
           html.should.equal("<html><body class=\"bada\"><h1 class='bing'>dude!</h1></body></html>");
           done();
         }
-        var f = eval(bundle);
+        var f = eval(bundle.toString());
       }
     });
   });
