@@ -1,6 +1,6 @@
 {
   "name": "html2js-browserify",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "turn html into beautiful js, with browserify",
   "main": "index.js",
   "scripts": {
@@ -18,11 +18,11 @@
   },
   "dependencies": {
     "through": "~2.3.4",
-    "html-minifier": "0.7.2"
+    "html-minifier": "3.3.0"
   },
   "devDependencies": {
-    "browserify": "~3.4.1",
-    "mocha": "~1.15.1",
-    "chai": "~1.8.1"
+    "browserify": "~14.0.0",
+    "mocha": "~3.2.0",
+    "chai": "~3.5.0"
   }
 }
