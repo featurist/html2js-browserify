@@ -1,4 +1,5 @@
-# Turn crummy HTML into beautiful Javascript
+# Turn crummy HTML into beautiful Javascript [![npm version](https://img.shields.io/npm/v/html2js-browserify.svg)](https://www.npmjs.com/package/html2js-browserify) [![npm](https://img.shields.io/npm/dm/html2js-browserify.svg)](https://www.npmjs.com/package/html2js-browserify) [![Build Status](https://travis-ci.org/featurist/html2js-browserify.svg?branch=master)](https://travis-ci.org/featurist/html2js-browserify)
+
 
     npm install html2js-browserify
 
