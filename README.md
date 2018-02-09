@@ -25,3 +25,6 @@ Then
     ```sh
     browserify -t [html2js-browserify --minify --collapseWhitespace] app.js
     ```
+
+## We're Hiring!
+Featurist provides full stack, feature driven development teams. Want to join us? Check out [our career opportunities](https://www.featurist.co.uk/careers/).
