@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "through": "^2.3.8",
-    "html-minifier": "3.3.0"
+    "html-minifier": "3.5.20"
   },
   "devDependencies": {
     "acorn": "^2.6.4",
